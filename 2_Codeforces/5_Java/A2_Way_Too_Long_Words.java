@@ -62,65 +62,124 @@ import java.util.Scanner;
 
 public class A2_Way_Too_Long_Words{
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        String word = scanner.nextLine();
-
-        // System.out.println("Word Length: " + word.length());
-
-        if(word.length() < 10){
-            System.out.println(word);
-        }else{
-            char firstChar, lastChar;
-            int middleLenght;
-            // Using split("") (convert into an array of single-character strings)
-            // String[] wordArray = word.split("");
-            // for (String letter : wordArray) {
-            //     System.out.println(letter);
+        // int count = scanner.nextInt();   // Scanning this way consumes the next line and ruins the order of the input
+        try (Scanner scanner = new Scanner(System.in)) {
+            // int count = scanner.nextInt();   // Scanning this way consumes the next line and ruins the order of the input
+            int count = Integer.parseInt(scanner.nextLine());
+            // String[] listWords = {"3", "A", "B", "C"};
+            // System.out.println("Word Length: " + word.length());
+            // for (String words: listWords) {
+            //     System.out.println(words);
             // }
-            middleLenght = word.length() - 2;
+            for (int i = 0; i < count; i++) {
+                String word = scanner.nextLine();
 
-
-            // In Java, you can get the specific character inside a String using the charAt(index) method.
-            // Index is the index of the character you want
-            firstChar = word.charAt(0);
-            lastChar = word.charAt(word.length() - 1);
-            // System.out.println(firstChar + middleLenght + lastChar);
-
-
-            // In Java, a char is really just a 16-bit integer (Unicode code point).
-            // When you do math or concatenation starting with a char and int, Java will promote them to numbers and add them together.
-            // Placing the "" sorted it out
-            System.out.println("Mine: " + firstChar + middleLenght + lastChar);
-
-        }
-
-        // scanner.close();
-
-
-
-        // "Elegant" way GPT solved it
-        // Scanner scanner = new Scanner(System.in);
-        // But in your test run, you didn’t provide n first. You went straight to "HelloWorldTest".
-        // That string was read by scanner.nextLine() and Java tried to turn it into an integer → crash.
-        int n = Integer.parseInt(scanner.nextLine()); // number of words
-
-        for (int i = 0; i < n; i++) {
-            String wordGPT = scanner.nextLine();
-            if (wordGPT.length() <= 10) {
-                System.out.println(wordGPT);
-            } else {
-                System.out.printf("%c%d%c%n", 
-                    wordGPT.charAt(0), 
-                    wordGPT.length() - 2, 
-                    wordGPT.charAt(wordGPT.length() - 1)
-                );
+                if(word.length() < 10){
+                    
+                    System.out.println(word);
+                    
+                }else{
+                    char firstChar, lastChar;
+                    int middleLenght;
+                    // Using split("") (convert into an array of single-character strings)
+                    // String[] wordArray = word.split("");
+                    // for (String letter : wordArray) {
+                    //     System.out.println(letter);
+                    // }
+                    middleLenght = word.length() - 2;
+                    
+                    
+                    // In Java, you can get the specific character inside a String using the charAt(index) method.
+                    // Index is the index of the character you want
+                    firstChar = word.charAt(0);
+                    lastChar = word.charAt(word.length() - 1);
+                    // System.out.println(firstChar + middleLenght + lastChar);
+                    
+                    
+                    // In Java, a char is really just a 16-bit integer (Unicode code point).
+                    // When you do math or concatenation starting with a char and int, Java will promote them to numbers and add them together.
+                    // When you use + with a char and int, Java performs numeric addition, not string concatenation.
+                    // System.out.println(firstChar + middleLenght + lastChar);
+                    // Placing the "" sorted it out
+                    System.out.println("" + firstChar + middleLenght + lastChar);
+                    
+                }
             }
+            // "Elegant" way GPT solved it
+            // Scanner scanner = new Scanner(System.in);
+            // But in your test run, you didn’t provide n first. You went straight to "HelloWorldTest".
+            // That string was read by scanner.nextLine() and Java tried to turn it into an integer → crash.
+            // int n = Integer.parseInt(scanner.nextLine()); // number of words
+            // for (int i = 0; i < n; i++) {
+            //     String wordGPT = scanner.nextLine();
+            //     if (wordGPT.length() <= 10) {
+            //         System.out.println(wordGPT);
+            //     } else {
+            //         System.out.printf("%c%d%c%n",
+            //             wordGPT.charAt(0),
+            //             wordGPT.length() - 2,
+            //             wordGPT.charAt(wordGPT.length() - 1)
+            //         );
+            //     }
+            // }
+            // scanner.close();
         }
-
-        scanner.close();
 
 
 
     }
 }
+
+
+
+
+
+// Simplest Solution Using a Substring
+// public static void main(String[] args) {
+//     Scanner scanner = new Scanner(System.in);
+//     int n = Integer.parseInt(scanner.nextLine());
+    
+//     for (int i = 0; i < n; i++) {
+//         String word = scanner.nextLine();
+        
+//         if (word.length() > 10) {
+//             // Using substring to get first and last characters
+//             String result = word.charAt(0) + String.valueOf(word.length() - 2) + word.charAt(word.length() - 1);
+//             System.out.println(result);
+//         } else {
+//             System.out.println(word);
+//         }
+//     }
+//     scanner.close();
+// }
+
+
+
+
+// Solution that actually worked
+
+// Key differences from your original code:
+// Using nextInt() followed by nextLine() - This is the standard pattern for Codeforces problems
+// Using StringBuilder - Avoids the char+int concatenation issue
+// No try-with-resources - Some judges have issues with closing Scanner in certain ways
+
+// import java.util.*;
+// public class Main {
+//     public static void main(String[] args) {
+//         Scanner sc = new Scanner(System.in);
+//         int t = sc.nextInt();
+//         sc.nextLine(); // IMPORTANT: Consume the leftover newline
+        
+//         while (t-- > 0) {
+//             String s = sc.nextLine();
+//             int len = s.length();
+            
+//             if (len > 10) {
+//                 System.out.println(s.charAt(0) + "" + (len - 2) + "" + s.charAt(len - 1));
+//             } else {
+//                 System.out.println(s);
+//             }
+//         }
+//         sc.close();
+//     }
+// }

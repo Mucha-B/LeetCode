@@ -1,5 +1,8 @@
 /*
 
+    *** Problem Name in Site ***
+    => Way Too Long Words
+    
     Sometimes some words like "localization" or "internationalization" are so long that writing them many times in one text is quite tiresome.
 
     Let's consider a word too long, if its length is strictly more than 10 characters. All too long words should be replaced with a special abbreviation.
@@ -31,4 +34,41 @@
 
 */
 
+// Vanilla Javascript for Node.js environment
+const readline = require('readline');
 
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+let lineCount = 0;
+let n = 0;
+const results = [];
+
+rl.on('line', (line) => {
+    if (lineCount === 0) {
+        // First line: number of words
+        n = parseInt(line);
+        lineCount++;
+    } else if (lineCount <= n) {
+        // Process each word
+        const word = line.trim();
+        
+        if (word.length > 10) {
+            // Abbreviate: first char + middle length + last char
+            const abbreviated = word[0] + (word.length - 2) + word[word.length - 1];
+            results.push(abbreviated);
+        } else {
+            results.push(word);
+        }
+        
+        lineCount++;
+        
+        // If we've processed all words, output and close
+        if (lineCount > n) {
+            console.log(results.join('\n'));
+            rl.close();
+        }
+    }
+});
