@@ -59,3 +59,5 @@ function sumPowDigSeq(start, n, k) {
   }
     return [];
 }
+
+console.log("Wawawiwa");
