@@ -16,10 +16,10 @@
 
 /*
     Pseudo
-    1. Look for smallest value in array and remove
-    2. Look for largest value in array and remove
+    1. Look for smallest value in array
+    2. Look for largest value in array
     3. Sum all values in array to get total
-    4. Start subtracting all the extra args that came when the function was called, if any
+    4. Subtract then smallest, largest, and the penalty values
 
 */
 
